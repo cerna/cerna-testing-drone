@@ -39,6 +39,14 @@ steps:
   - sleep 5
   - apt-get update
 
+- name: Docker maybe
+  image: plugins/docker
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - docker -v
+
 ---
 kind: pipeline
 name: default2
