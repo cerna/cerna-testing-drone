@@ -31,6 +31,7 @@ steps:
   image: docker
   pull: if-not-exists
   volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
   - /root/.docker:/root/.docker
   commands:
   - docker pull eryaf/mk-cross-builder:amrhf_8
