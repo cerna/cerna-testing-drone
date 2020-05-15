@@ -30,6 +30,11 @@ steps:
 - name: Docker in Docker
   image: plugins/docker
   pull: if-not-exists
+  volumes:
+    - name: docker_sock_internal
+      path: /var/run/
+    - name: docker_config
+      path: /root/.docker/config.json
   commands:
   - docker pull eryaf/mk-cross-builder:amrhf_8
   - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
