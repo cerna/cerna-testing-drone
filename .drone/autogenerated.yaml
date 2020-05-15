@@ -37,6 +37,8 @@ steps:
       path: /root/.docker/config.json
     - name: docker_var_lib
       path: /var/lib/docker
+    - name: docker_socket
+      path: /var/run/docker.sock
   commands:
   - docker pull eryaf/mk-cross-builder:amrhf_8
   - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
