@@ -1,6 +1,9 @@
 kind: pipeline
 name: default
 
+platform:
+  arch: arm64
+
 steps:
 - name: redis
   image: redis
@@ -17,6 +20,8 @@ steps:
   pull: if-not-exists
   commands:
   - printenv
+  - uname -a
+  - uname -r
 
 - name: test
   image: redis
@@ -26,20 +31,3 @@ steps:
   - redis-cli -h redis ping
   - redis-cli -h redis set FOO bar
   - redis-cli -h redis get FOO
-
-- name: Docker in Docker
-  image: plugins/docker
-  pull: if-not-exists
-  volumes:
-    - name: docker_sock_internal
-      path: /var/run/
-    - name: docker_config
-      path: /root/.docker/config.json
-    - name: docker_var_lib
-      path: /var/lib/docker
-    - name: docker_socket
-      path: /var/run/docker.sock
-  commands:
-  - docker pull eryaf/mk-cross-builder:amrhf_8
-  - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
-  - docker push machinekit-registry/builder-v.armhf_8:latest
