@@ -7,6 +7,11 @@ steps:
   detach: true
   pull: if-not-exists
 
+- name: machinekit-registry
+  image: registry:2
+  detach: true
+  pull: if-not-exists
+
 - name: Print environ
   image: debian:buster
   pull: if-not-exists
@@ -21,3 +26,11 @@ steps:
   - redis-cli -h redis ping
   - redis-cli -h redis set FOO bar
   - redis-cli -h redis get FOO
+
+- name: Docker in Docker
+  image: docker
+  pull: if-not-exists
+  commands:
+  - docker pull eryaf/mk-cross-builder:amrhf_8
+  - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
+  - docker push machinekit-registry/builder-v.armhf_8:latest
