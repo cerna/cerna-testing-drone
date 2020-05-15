@@ -23,6 +23,7 @@ steps:
   settings:
     repo: registry:5000/testing
     registry: registry:5000
+    insecure: true
 
 - name: test image
   image: registry:5000/testing
