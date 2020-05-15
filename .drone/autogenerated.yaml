@@ -7,6 +7,12 @@ steps:
   detach: true
   pull: if-not-exists
 
+- name: Print environ
+  image: debian:buster
+  pull: if-not-exists
+  commands:
+  - printenv
+
 - name: test
   image: redis
   pull: if-not-exists
