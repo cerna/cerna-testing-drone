@@ -46,6 +46,7 @@ steps:
     path: /var/run
   commands:
   - docker -v
+  - docker pull debian:buster
 
 ---
 kind: pipeline
