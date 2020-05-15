@@ -28,7 +28,7 @@ steps:
   - redis-cli -h redis get FOO
 
 - name: Docker in Docker
-  image: docker
+  image: plugins/docker
   pull: if-not-exists
   volumes:
     - name: docker_sock_internal
