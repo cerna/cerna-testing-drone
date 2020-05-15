@@ -28,13 +28,15 @@ steps:
   - redis-cli -h redis get FOO
 
 - name: Docker in Docker
-  image: plugins/docker
+  image: docker
   pull: if-not-exists
   volumes:
     - name: docker_sock_internal
       path: /var/run/
     - name: docker_config
       path: /root/.docker/config.json
+    - name: docker_var_lib
+      path: /var/lib/docker
   commands:
   - docker pull eryaf/mk-cross-builder:amrhf_8
   - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
