@@ -30,6 +30,8 @@ steps:
 - name: Docker in Docker
   image: docker
   pull: if-not-exists
+  volumes:
+  - /root/.docker:/root/.docker
   commands:
   - docker pull eryaf/mk-cross-builder:amrhf_8
   - docker tag eryaf/mk-cross-builder:amrhf_8 machinekit-registry/builder-v.armhf_8:latest
