@@ -5,12 +5,7 @@ platform:
   arch: amd64
 
 steps:
-- name: redis
-  image: redis
-  detach: true
-  pull: if-not-exists
-
-- name: machinekit-registry
+- name: registry
   image: registry:2
   detach: true
   pull: if-not-exists
@@ -23,52 +18,13 @@ steps:
   - uname -a
   - uname -r
 
-- name: test
-  image: redis
-  pull: if-not-exists
-  commands:
-  - sleep 5
-  - redis-cli -h redis ping
-  - redis-cli -h redis set FOO bar
-  - redis-cli -h redis get FOO
-
-#- name: test2
-#  image: eryaf/mk-cross-builder:armhf_8
-#  pull: if-not-exists
-#  commands:
-#  - sleep 5
-#  - apt-get update
-
-- name: Docker maybe
+- name: Docker build
   image: plugins/docker
-  volumes:
-  - name: dockersock
-    path: /var/run
+  settings:
+    repo: registry:5000/testing
+    registry: registry:5000
+
+- name: test image
+  image: registry:5000/testing
   commands:
-  - docker -v
-  - docker pull debian:buster
-
----
-kind: pipeline
-name: default2
-
-steps:
-- name: test
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - sleep 5 # give docker enough time to start
-  - docker ps -a
-
-services:
-- name: docker
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-
-volumes:
-- name: dockersock
-  temp: {}
+    - uname -a
