@@ -5,7 +5,7 @@ platform:
   arch: amd64
 
 steps:
-- name: registry
+- name: registry.local
   image: registry:2
   detach: true
   pull: if-not-exists
@@ -21,11 +21,11 @@ steps:
 - name: Docker build
   image: plugins/docker
   settings:
-    repo: registry:5000/testing
-    registry: registry:5000
+    repo: registry.local:5000/testing
+    registry: registry.local:5000
     insecure: true
 
 - name: test image
-  image: registry:5000/testing
+  image: registry.local:5000/testing
   commands:
     - uname -a
