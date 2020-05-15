@@ -34,7 +34,7 @@ steps:
 
 ---
 kind: pipeline
-name: default
+name: default2
 
 steps:
 - name: test
