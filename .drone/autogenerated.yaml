@@ -32,6 +32,13 @@ steps:
   - redis-cli -h redis set FOO bar
   - redis-cli -h redis get FOO
 
+- name: test2
+  image: eryaf/mk-cross-builder:armhf_8
+  pull: if-not-exists
+  commands:
+  - sleep 5
+  - apt-get update
+
 ---
 kind: pipeline
 name: default2
