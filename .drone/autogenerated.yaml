@@ -26,7 +26,7 @@ steps:
     insecure: true
 
 - name: test image
-  image: docker:dind-rootless
+  image: weberlars/diuid
   commands:
     - uname -a
     - docker -v
