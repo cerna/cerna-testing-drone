@@ -26,6 +26,8 @@ steps:
     insecure: true
 
 - name: test image
-  image: registry.local:5000/testing
+  image: docker:dind-rootless
   commands:
     - uname -a
+    - docker -v
+    - docker pull eryaf/mk-cross-builder:amd64_10
