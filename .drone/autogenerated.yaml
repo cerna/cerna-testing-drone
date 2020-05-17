@@ -24,7 +24,6 @@ steps:
     - docker -v
     - nohup dockerd &
     - docker pull debian:jessie
-  privileged: true
 
 
 - name: Docker build
