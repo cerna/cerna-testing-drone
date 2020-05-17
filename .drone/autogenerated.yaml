@@ -35,4 +35,4 @@ steps:
   commands:
     - uname -a
 
-network_mode: host
+network_mode: overlay
