@@ -20,6 +20,9 @@ steps:
 
 - name: dind
   image: plugins/docker
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
   commands:
     - docker -v
     - nohup dockerd &
@@ -39,3 +42,8 @@ steps:
     - uname -a
     - docker -v
     - docker pull eryaf/mk-cross-builder:amd64_10
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
