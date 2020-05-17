@@ -35,4 +35,4 @@ steps:
   commands:
     - uname -a
 
-network_mode: bridge
+network_mode: host
