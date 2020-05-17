@@ -22,9 +22,6 @@ steps:
   image: plugins/docker
   commands:
     - docker -v
-    - nohup dockerd &
-    - docker pull debian:jessie
-
 
 - name: Docker build
   image: plugins/docker
@@ -34,10 +31,8 @@ steps:
     insecure: true
 
 - name: test image
-  image: weberlars/diuid
+  image: registry.local:5000/testing
   commands:
     - uname -a
-    - docker -v
-    - docker pull eryaf/mk-cross-builder:amd64_10
 
 network_mode: host
