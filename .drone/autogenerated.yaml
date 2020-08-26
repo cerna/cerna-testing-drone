@@ -5,14 +5,8 @@ platform:
   arch: arm
 
 steps:
-- name: registry
-  image: registry:2
-  detach: true
-  pull: if-not-exists
-
 - name: Print environ
   image: debian:buster
-  pull: if-not-exists
   commands:
   - printenv
   - uname -a
@@ -20,7 +14,6 @@ steps:
   - uname -m
   - cat /proc/cpuinfo
 
-network_mode: overlay
 ---
 
 kind: pipeline
@@ -30,19 +23,11 @@ platform:
   arch: arm64
 
 steps:
-- name: registry
-  image: registry:2
-  detach: true
-  pull: if-not-exists
-
 - name: Print environ
   image: debian:buster
-  pull: if-not-exists
   commands:
   - printenv
   - uname -a
   - uname -r
   - uname -m
   - cat /proc/cpuinfo
-
-network_mode: overlay
