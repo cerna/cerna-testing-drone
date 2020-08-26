@@ -17,6 +17,7 @@ steps:
   - printenv
   - uname -a
   - uname -r
+  - uname -m
   - cat /proc/cpuinfo
 
 network_mode: overlay
@@ -41,6 +42,7 @@ steps:
   - printenv
   - uname -a
   - uname -r
+  - uname -m
   - cat /proc/cpuinfo
 
 network_mode: overlay
