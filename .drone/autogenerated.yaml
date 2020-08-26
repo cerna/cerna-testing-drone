@@ -1,8 +1,8 @@
 kind: pipeline
-name: default
+name: default armhf
 
 platform:
-  arch: amd64
+  arch: arm
 
 steps:
 - name: registry
@@ -17,22 +17,30 @@ steps:
   - printenv
   - uname -a
   - uname -r
+  - cat /proc/cpuinfo
 
-- name: dind
-  image: plugins/docker
+network_mode: overlay
+---
+
+kind: pipeline
+name: default arm64
+
+platform:
+  arch: arm64
+
+steps:
+- name: registry
+  image: registry:2
+  detach: true
+  pull: if-not-exists
+
+- name: Print environ
+  image: debian:buster
+  pull: if-not-exists
   commands:
-    - docker -v
-
-- name: Docker build
-  image: plugins/docker
-  settings:
-    repo: registry:5000/testing
-    registry: registry:5000
-    insecure: true
-
-- name: test image
-  image: registry:5000/testing
-  commands:
-    - uname -a
+  - printenv
+  - uname -a
+  - uname -r
+  - cat /proc/cpuinfo
 
 network_mode: overlay
